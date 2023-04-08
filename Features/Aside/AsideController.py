@@ -9,3 +9,4 @@ class AsideController:
     def change_active(self, id: int):
         self._model.change_active(id)
         self._view.update_menu(self._model.menu)
+        self._view.emit_menu_option(id)
