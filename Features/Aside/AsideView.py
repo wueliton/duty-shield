@@ -3,7 +3,7 @@ from typing import List, Callable
 import customtkinter as ctk
 from PIL import Image
 
-from Features.Aside.AsideModel import MenuItem
+from Features.Application.ApplicationModel import View
 from Features.Aside.MenuOptionView import MenuOptionView
 from Theme import LightTheme
 
@@ -37,7 +37,7 @@ class AsideView(ctk.CTkFrame):
         self.controller = controller
         self.create_menu(controller.get_menu_options())
 
-    def create_menu(self, menu: List[MenuItem]):
+    def create_menu(self, menu: List[View]):
         for menu_option in menu:
             btn = MenuOptionView(
                 self.frame, id=menu_option.id,
@@ -53,7 +53,7 @@ class AsideView(ctk.CTkFrame):
         if self.on_menu_change:
             self.on_menu_change(id)
 
-    def update_menu(self, menu: List[MenuItem]):
+    def update_menu(self, menu: List[View]):
         for menu_option in menu:
             menu_option_frame = next(filter(lambda btn: btn.id == menu_option.id, self.menu), None)
             menu_option_frame.change_active(menu_option.active)

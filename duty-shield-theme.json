@@ -1,7 +1,7 @@
 {
   "CTk": {
-    "fg_color": ["#FDFDFD", "gray10"],
-    "text_color": ["#151A26", "#151A26"]
+    "fg_color": ["#F4F4F4", "gray10"],
+    "text_color": ["#F4F4F4", "#151A26"]
   },
   "CTkToplevel": {
     "fg_color": ["#FFFFFF", "gray10"]
@@ -11,7 +11,7 @@
     "border_width": 0,
     "fg_color": "#FFFFFF",
     "top_fg_color": "transparent",
-    "border_color": ["#EEE", "#EEE"],
+    "border_color": ["#F4F4F4", "#F4F4F4"],
     "text_color": ["#151A26", "#151A26"]
   },
   "CTkButton": {

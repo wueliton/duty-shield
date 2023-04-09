@@ -1,23 +1,17 @@
 from typing import List
 
-
-class MenuItem:
-    id: int
-    icon: str
-    label: str
-    active: bool
-
-    def __init__(self, id, icon, label, active):
-        self.id = id
-        self.icon = icon
-        self.label = label
-        self.active = active
+from Features.Application.ApplicationModel import View
 
 
 class AsideModel:
-    def __init__(self, menu):
-        self.menu: List[MenuItem] = menu
+    _menu: List[View] = []
+
+    def set_menu(self, menu: List[View]):
+        self._menu = menu
+
+    def get_menu(self):
+        return self._menu
 
     def change_active(self, id: int):
-        for i in range(len(self.menu)):
-            self.menu[i].active = self.menu[i].id == id
+        for i in range(len(self._menu)):
+            self._menu[i].active = self._menu[i].id == id

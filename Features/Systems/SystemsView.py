@@ -25,7 +25,8 @@ class SystemsView(ctk.CTkFrame):
                                      font=LightTheme.get_font(), text_color=LightTheme.fg_low, anchor="w")
         self.subtitle.pack(side="top", fill="x")
 
-        action = ctk.CTkButton(heading_frame, text="Novo Sistema", image=ctk.CTkImage(Image.open("assets/plus.png"), size=(18, 18)))
+        icon = ctk.CTkImage(Image.open("assets/plus.png"), size=(18, 18))
+        action = ctk.CTkButton(heading_frame, text="Novo Sistema", image=icon)
         action.pack(side="right")
 
         self.table = Table(self, title="Todos os Sistemas")

@@ -6,11 +6,12 @@ import customtkinter as ctk
 
 class LightTheme:
     bg = "#DDDDDD"
-    bg_1 = "#ECEEF0"
-    bg_2 = "#FDFDFD"
+    bg_1 = "#EEEEEE"
+    bg_2 = "#F4F4F4"
     bg_3 = "#FFFFFF"
 
     primary = "#5350F7"
+    primary_light = "#E2E1FF"
     fg_on_primary = "#FFFFFF"
 
     fg = "#151A26"

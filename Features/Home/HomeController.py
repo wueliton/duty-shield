@@ -11,7 +11,7 @@ class HomeController:
     def update_message(self):
         self._model.update_message()
         self._view.update_message(self._model.message)
-        self._view.title.after(1000, self.update_message)
+        # self._view.title.after(1000, self.update_message)
 
     def load_dashboard(self):
         self._view.set_systems_count(self._model.get_data_count(sheet_name='systems'))

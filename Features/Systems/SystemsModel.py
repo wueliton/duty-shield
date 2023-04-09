@@ -7,4 +7,4 @@ class SystemsModel:
 
     def get_data(self):
         data = pd.read_excel(self.excel_file, sheet_name="systems")
-        return [data.columns.tolist(), data.values.tolist()]
+        return [["Código", "Nome"], data.values.tolist()]
