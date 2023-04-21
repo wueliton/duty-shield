@@ -11,6 +11,9 @@ from Features.Systems.SystemsController import SystemsController
 from Features.Systems.SystemsModel import SystemsModel
 from Features.Systems.SystemsView import SystemsView
 from Features.Users.UsersView import UsersView
+from Features.Users.UsersModel import UsersModel
+from Features.Users.UsersController import UsersController
+
 from Theme import LightTheme
 
 
@@ -56,7 +59,10 @@ class ApplicationView(ctk.CTk):
         self.controller.add_view(systems_view, "Sistemas", "assets/puzzle.png")
 
         # Users View
+        users_model = UsersModel(self.controller.get_file())
         users_view = UsersView(views_frame)
+        users_controller = UsersController(users_model, users_view)
+        users_view.set_controller(users_controller)
         users_view.place(x=0, y=0, relheight=1, relwidth=1)
         self.controller.add_view(users_view, "Usuários", "assets/users.png")
 
