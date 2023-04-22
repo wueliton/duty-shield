@@ -39,7 +39,7 @@ class MenuOptionView(ctk.CTkFrame):
 
     def enter(self, _event):
         if self.active is not True:
-            self.configure(fg_color=LightTheme.bg)
+            self.configure(fg_color=LightTheme.bg, cursor="pointinghand", height=20)
 
     def leave(self, _event):
         if self.active is not True:

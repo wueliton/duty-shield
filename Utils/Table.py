@@ -5,9 +5,18 @@ import customtkinter as ctk
 from Theme import LightTheme
 
 
+class Head:
+    key: str
+    title: str
+
+    def __init__(self, key: str, title: str):
+        self.key = key
+        self.title = title
+
+
 class TableModel:
-    headers: [str]
-    cells: [[str]]
+    headers: [Head]
+    cells: list[dict]
 
     def __init__(self, headers, cells):
         self.headers = headers
@@ -17,10 +26,12 @@ class TableModel:
 class Cell(ctk.CTkFrame):
     row: int
 
-    def __init__(self, master=None, text: str = None, row: int = 0, hover: Callable[[int, str], None] = None, **kw):
+    def __init__(self, master=None, text: str = None, row: int = 0, hover: Callable[[int, str], None] = None,
+                 command: Callable[[dict], None] = None, data: dict = None, **kw):
         super().__init__(master, **kw)
         self.row = row
         self.hover = hover
+        self.data = data
         label = ctk.CTkLabel(self, text=text, anchor="w")
         label.pack(side="top", fill="both", expand=True, padx=12, pady=4)
         line = ctk.CTkFrame(self, height=1, fg_color=LightTheme.bg_1)
@@ -29,9 +40,12 @@ class Cell(ctk.CTkFrame):
         self.bind("<Enter>", self.enter_event)
         label.bind("<Leave>", self.leave_event)
         self.bind("<Leave>", self.leave_event)
+        if command:
+            self.bind("<Button-1>", lambda event: command(self.data))
+            label.bind("<Button-1>", lambda event: command(self.data))
 
     def enter(self):
-        self.configure(fg_color=LightTheme.primary_light)
+        self.configure(fg_color=LightTheme.primary_light, cursor="pointinghand", height=20)
 
     def leave(self):
         self.configure(fg_color=LightTheme.bg_3)
@@ -61,30 +75,33 @@ class Table(ctk.CTkFrame):
         self.table.columnconfigure(1, weight=1)
         self.render(title=title, content=content)
 
-    def render(self, title: str = None, content: TableModel = None):
+    def render(self, title: str = None, content: TableModel = None, command: Callable[[dict], None] = None):
         if title:
             self.title.configure(text=title)
         if content:
             self.destroy_table()
 
-            for index in range(len(content.headers)):
-                heading = HeadingCell(self.table, title=content.headers[index])
-                heading.grid(column=index, row=0, sticky="nsew")
+            for column in range(len(content.headers)):
+                heading = HeadingCell(self.table, title=content.headers[column].title)
+                heading.grid(column=column, row=0, sticky="nsew")
 
             for row in range(len(content.cells)):
                 self.lines.append([])
                 for cell in range(len(content.cells[row])):
-                    cell_frame = Cell(self.table, text=content.cells[row][cell], row=row, hover=self.hover)
+                    cell_frame = Cell(self.table, text=content.cells[row][content.headers[cell].key], row=row,
+                                      hover=self.hover, command=command, data=content.cells[row])
                     self.lines[row].append(cell_frame)
                     cell_frame.grid(column=cell, row=row + 1, sticky="nsew")
 
     def destroy_table(self):
-        for widget in self.table.winfo_children():
-            widget.destroy()
+        for line in self.lines:
+            for cell in line:
+                cell.destroy()
+        self.lines = []
 
-    def configure(self, title: str = None, content: TableModel = None, **kw):
+    def configure(self, title: str = None, content: TableModel = None, command: Callable[[dict], None] = None, **kw):
         super().configure(**kw)
-        self.render(title=title, content=content)
+        self.render(title=title, content=content, command=command)
 
     def hover(self, line: int, event):
         for cell in self.lines[line]:
@@ -104,6 +121,3 @@ class HeadingCell(ctk.CTkFrame):
 
         line = ctk.CTkFrame(self, height=1, fg_color=LightTheme.bg_1)
         line.pack(side="top", fill="x")
-
-
-

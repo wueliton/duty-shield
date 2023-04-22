@@ -6,5 +6,10 @@ class SystemsModel:
         self.excel_file = excel_file
 
     def get_data(self):
-        data = pd.read_excel(self.excel_file, sheet_name="systems")
-        return [["Código", "Nome"], data.values.tolist()]
+        excel_file = pd.ExcelFile(self.excel_file)
+        data = pd.read_excel(excel_file, sheet_name="systems")
+        data_dict = data.to_dict('records')
+        return data_dict
+
+    def get_excel_file(self):
+        return self.excel_file
