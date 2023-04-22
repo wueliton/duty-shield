@@ -19,7 +19,7 @@ class App:
         splash_screen = SplashView()
         splash_controller = SplashController(splash_model, splash_screen)
         splash_screen.set_controller(splash_controller)
-        splash_screen.after(500, self.main_window)
+        splash_screen.after(50, self.main_window)
         self.splash_screen = splash_screen
         splash_screen.mainloop()
 
