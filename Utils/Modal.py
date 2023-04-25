@@ -27,7 +27,7 @@ class Modal(ABC):
         self.center_window()
         self.win.title(self.title)
         content = ctk.CTkFrame(self.win)
-        content.pack(side="top", expand=True, fill="both", padx=8, pady=8)
+        content.pack(side="top", expand=True, fill="both", padx=20, pady=12)
 
         footer = ctk.CTkFrame(self.win)
         footer.pack(side="top", fill="x", padx=12, pady=8)
