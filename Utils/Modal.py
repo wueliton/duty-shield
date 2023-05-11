@@ -25,6 +25,7 @@ class Modal(ABC):
         self.win.protocol("WM_DELETE_WINDOW", self.win.destroy)
         self.center_window()
         self.win.title(self.title)
+        self.win.grab_set()
         content = ctk.CTkFrame(self.win)
         content.pack(side="top", expand=True, fill="both", padx=20, pady=12)
 
@@ -37,9 +38,6 @@ class Modal(ABC):
                                    border_width=1, hover_color=LightTheme.bg_3, command=self.close)
         cancel_btn.pack(side="right", padx=8)
         self.render(content)
-        self.win.wait_visibility()
-        self.win.grab_set()
-        self.win.mainloop()
 
     def center_window(self):
         self.win.geometry(f"{self.height}x{self.width}")
