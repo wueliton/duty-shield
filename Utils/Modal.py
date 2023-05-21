@@ -22,12 +22,12 @@ class Modal(ABC):
 
     def open(self):
         self.win = ctk.CTkToplevel()
-        self.win.grab_set()
         self.win.protocol("WM_DELETE_WINDOW", self.win.destroy)
         self.center_window()
         self.win.title(self.title)
+        self.win.grab_set()
         content = ctk.CTkFrame(self.win)
-        content.pack(side="top", expand=True, fill="both", padx=8, pady=8)
+        content.pack(side="top", expand=True, fill="both", padx=20, pady=12)
 
         footer = ctk.CTkFrame(self.win)
         footer.pack(side="top", fill="x", padx=12, pady=8)

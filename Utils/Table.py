@@ -45,7 +45,7 @@ class Cell(ctk.CTkFrame):
             label.bind("<Button-1>", lambda event: command(self.data))
 
     def enter(self):
-        self.configure(fg_color=LightTheme.primary_light, cursor="pointinghand", height=20)
+        self.configure(fg_color=LightTheme.primary_light)
 
     def leave(self):
         self.configure(fg_color=LightTheme.bg_3)

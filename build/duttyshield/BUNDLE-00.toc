@@ -1,3 +1,0 @@
-([('duttyshield',
-   '/Users/paulowueliton/Documents/python/duty-shield/dist/duttyshield',
-   'EXECUTABLE')],)
