@@ -10,19 +10,16 @@ class PutProfileModel(BaseModel):
 
     def check_exists(self, system_cod: str, profile_name: str):
         return len(self.service.find(self.sheet_name, f'cod_system == "{system_cod}" and '
-                                                      f'name == "{profile_name}"')) < 1
+                                                      f'name == "{profile_name}"')) > 0
 
     def validate_system(self, system_cod: str):
         return len(self.service.find('systems', f'cod == "{system_cod}"')) == 0
 
-    def validate_profile(self, profile_name: str):
-        return len(self.service.find(self.sheet_name, f'name == "{profile_name}"')) == 0
-
     def save(self, new_item: dict):
         self.service.add_row(self.sheet_name, pd.DataFrame({
-            'cod_system': new_item['cod_system'],
-            'name': new_item['name'],
-            'description': new_item['description']
+            'cod_system': [new_item['cod_system']],
+            'name': [new_item['name']],
+            'description': [new_item['description']]
         }))
 
     def update(self, old_item: dict, new_item: dict):

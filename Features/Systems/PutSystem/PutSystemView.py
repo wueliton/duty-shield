@@ -35,6 +35,7 @@ class PutSystemView(Modal):
             self._controller.load_by_cod(self.system_id)
 
     def open(self, system_cod: Optional[int] = None, on_close: Callable = None):
+        self.title = "Gerenciar Sistemas"
         super().open()
         self.code = system_cod
         self.on_close = on_close

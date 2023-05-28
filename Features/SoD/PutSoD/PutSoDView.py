@@ -19,6 +19,7 @@ class PutSoDView(Modal):
         self.on_close = None
 
     def open(self, item: Optional[dict] = None, on_close: Callable = None):
+        self.title = "Gerenciar Regra da Matriz SoD"
         super().open()
         self.item = item
         self.on_close = on_close
