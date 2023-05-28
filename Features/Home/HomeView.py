@@ -28,10 +28,10 @@ class HomeView(ctk.CTkFrame):
                                            anchor="w")
         self.overview_title.grid(column=0, row=0, pady=(40, 4), padx=0, columnspan=4, sticky="nsew")
 
-        self.card_systems = OverViewCard(self.overview_frame, title="Sistemas", value="123", color="#ff7675")
+        self.card_systems = OverViewCard(self.overview_frame, title="Sistemas", value="", color="#ff7675")
         self.card_systems.grid(column=0, row=1, padx=(0, 4), pady=4, sticky="nsew")
 
-        self.card_users = OverViewCard(self.overview_frame, title="Usuários", value="23", color="#0984e3")
+        self.card_users = OverViewCard(self.overview_frame, title="Usuários", value="", color="#0984e3")
         self.card_users.grid(column=1, row=1, padx=4, pady=4, sticky="nsew")
 
     def set_controller(self, controller):
