@@ -26,7 +26,6 @@ class Modal:
         self.win.protocol("WM_DELETE_WINDOW", self.win.destroy)
         self.center_window()
         self.win.title(self.title)
-        self.win.grab_set()
         self.on_close = on_close
         content = ctk.CTkFrame(self.win)
         content.pack(side="top", expand=True, fill="both", padx=20, pady=12)

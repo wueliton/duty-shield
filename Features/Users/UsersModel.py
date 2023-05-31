@@ -1,15 +1,7 @@
-import pandas as pd
+from Service.SoDService import SoDService
+from Utils.BaseModel import BaseModel
 
 
-class UsersModel:
-    def __init__(self, excel_file: pd.ExcelFile):
-        self.excel_file = excel_file
-
-    def get_data(self):
-        excel_file = pd.ExcelFile(self.excel_file)
-        data = pd.read_excel(excel_file, sheet_name="users")
-        data_dict = data.to_dict('records')
-        return data_dict
-
-    def get_excel_file(self):
-        return self.excel_file
+class UsersModel(BaseModel):
+    def __init__(self, sod_service: SoDService):
+        super().__init__(sod_service, 'users')

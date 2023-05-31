@@ -58,3 +58,19 @@ class SoDService:
         with pd.ExcelWriter(excel_file) as writer:
             for sheet_name, sheet_df in sheets_dict.items():
                 sheet_df.to_excel(writer, sheet_name=sheet_name, index=False)
+                
+    # def update_row(self, target_sheet_name: str, expr, updated_line: dict):
+    #     excel_file = pd.ExcelFile(self.file_name)
+    #     sheets_dict = pd.read_excel(excel_file, sheet_name=None)
+    #     df = sheets_dict[target_sheet_name]
+    #     if isinstance(expr, int):
+    #         line = df[df['cpf'] == expr].index[0]
+    #     else:
+    #         line = df.query(expr).index[0]
+            
+    #     for col, value in updated_line.items():
+    #         df.at[line, col] = value
+            
+    #     with pd.ExcelWriter(excel_file) as writer:
+    #         for sheet_name, sheet_df in sheets_dict.items():
+    #             sheet_df.to_excel(writer, sheet_name=sheet_name, index=False)
