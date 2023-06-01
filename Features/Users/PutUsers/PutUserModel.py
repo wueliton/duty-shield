@@ -12,9 +12,13 @@ class PutUserModel(BaseModel):
     def validate(self, sheet_name: str, expr: str):
         return len(self.service.find(sheet_name, expr)) < 1
     
+    
     def validate_system(self, system_cod: str):
         return len(self.service.find('systems', f'cod == "{system_cod}"')) == 0
     
+    def check_exists_profile(self, system_cod: str, profile_name: str):
+        return len(self.service.find('profiles', f'cod_system == "{system_cod}" and '
+                                                 f'name == "{profile_name}"')) == 0
     
     def check_exists(self, item: dict):
         users_cpf = item['cpf']
@@ -30,20 +34,7 @@ class PutUserModel(BaseModel):
             'cod_system': [new_item['cod_system']],
             'profile': [new_item['profile']]
         }))
-    
-    # def update(self, old_item: dict, new_item: dict):
-    #     old_users_cpf = old_item['cpf']
-    #     old_users_system = old_item['cod_system']
-    #     old_users_profile = old_item['profile']
-    #     self.service.update_row(self.sheet_name, f'cpf == "{old_users_cpf}" and '
-    #                                              f'cod_system == "{old_users_system}" and '
-    #                                              f'profile == "{old_users_profile}"',
-    #                             {
-    #                                 'cpf': new_item['cpf'],
-    #                                 'cod_system': new_item['cod_system'],
-    #                                 'profile': new_item['profile']
-    #                             })
-        
+
     def update(self, old_item: dict, new_item: dict):
         old_users_cpf = old_item['cpf']
         old_users_system = old_item['cod_system']

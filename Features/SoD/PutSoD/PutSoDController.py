@@ -8,11 +8,11 @@ class PutSoDController(BaseController):
     def validate_system(self, cod: str):
         return self._model.validate('systems', f'cod == "{cod}"')
 
-    def validate_profile(self, name: str):
-        return self._model.validate('profiles', f'name == "{name}"')
-
     def check_exists(self, item: dict):
         return len(self._model.check_exists(item)) > 0
+    
+    def check_exists_profile(self, system: str, profile: str):
+        return self._model.check_exists_profile(system, profile)
 
     def update(self, old_item: dict, new_item: dict):
         self._model.update(old_item, new_item)

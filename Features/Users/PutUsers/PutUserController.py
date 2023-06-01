@@ -6,6 +6,9 @@ class PutUserController(BaseController):
     
     def validate_system(self, users_system: str):
         return self._model.validate_system(users_system)
+    
+    def check_exists_profile(self, users_system: str, users_profile_name: str):
+        return self._model.check_exists_profile(users_system, users_profile_name)
 
     def load_by_cpf(self, cpf: str):
         row = self._model.get_system_by_cpf(cpf)

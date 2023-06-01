@@ -20,7 +20,10 @@ class PutSoDModel(BaseModel):
                                                   f'name_profile == "{profile}" and '
                                                   f'cod_system_conflict == "{cod_conflict}" and '
                                                   f'name_profile_conflict == "{profile_conflict}"')
-
+        
+    def check_exists_profile(self, system_cod: str, profile_name: str):
+        return len(self.service.find('profiles', f'cod_system == "{system_cod}" and '
+                                                 f'name == "{profile_name}"')) == 0
     def save(self, new_item: dict):
         self.service.add_row(self.sheet_name, pd.DataFrame({
             'cod_system': [new_item['cod_system']],

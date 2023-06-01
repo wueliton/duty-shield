@@ -30,7 +30,9 @@ class PutUserView(Modal):
             message="Código inexistente, insira um código de sistema válido")])
         self.users_system.pack(side="top", fill="x")
         
-        self.users_profile = Entry(master, label="Perfil")
+        self.users_profile = Entry(master, label="Perfil", validators=[Validator(
+            fn=lambda value: self._controller.check_exists_profile(self.users_system.get_value(), value),
+            message="Perfil inexistente, insira um perfil válido")])
         self.users_profile.pack(side="top", fill="x")
 
         self.error_label = ctk.CTkLabel(master, text="Erro", font=LightTheme.get_font("error"))

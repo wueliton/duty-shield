@@ -39,7 +39,7 @@ class PutSoDView(Modal):
         self.system_key.pack(side="top", fill="x")
 
         self.profile_cod = Entry(master, label="Código do Perfil", validators=[Validator(
-            fn=lambda value: self._controller.validate_profile(value),
+            fn=lambda value: self._controller.check_exists_profile(self.system_key.get_value(), value),
             message="Código de perfil inválido, insira um código existente")],
                                 max_length=15)
         self.profile_cod.pack(side="top", fill="x")
@@ -51,7 +51,7 @@ class PutSoDView(Modal):
         self.system_key_conflict.pack(side="top", fill="x")
 
         self.profile_cod_conflict = Entry(master, label="Código do Perfil Conflitante", validators=[Validator(
-            fn=lambda value: self._controller.validate_profile(value),
+            fn=lambda value: self._controller.check_exists_profile(self.system_key_conflict.get_value(), value),
             message="Código de perfil inválido, insira um código existente")],
                                  max_length=15)
         self.profile_cod_conflict.pack(side="top", fill="x")

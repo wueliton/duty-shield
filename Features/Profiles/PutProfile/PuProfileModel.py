@@ -13,7 +13,7 @@ class PutProfileModel(BaseModel):
                                                       f'name == "{profile_name}"')) > 0
 
     def validate_system(self, system_cod: str):
-        return len(self.service.find('systems', f'cod == "{system_cod}"')) == 0
+        return len(self.service.find('systems', f'cod == "{system_cod}"')) < 1
 
     def save(self, new_item: dict):
         self.service.add_row(self.sheet_name, pd.DataFrame({
