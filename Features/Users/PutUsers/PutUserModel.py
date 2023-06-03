@@ -15,6 +15,7 @@ class PutUserModel(BaseModel):
     
     def validate_system(self, system_cod: str):
         return len(self.service.find('systems', f'cod == "{system_cod}"')) == 0
+        
     
     def check_exists_profile(self, system_cod: str, profile_name: str):
         return len(self.service.find('profiles', f'cod_system == "{system_cod}" and '
@@ -24,9 +25,11 @@ class PutUserModel(BaseModel):
         users_cpf = item['cpf']
         users_system = item['cod_system']
         users_profile = item['profile']
-        return self.service.find(self.sheet_name, f'cpf == "{users_cpf}" and '
-                                                  f'cod_system == "{users_system}" and '
-                                                  f'profile == "{users_profile}"')
+        
+        expr = f'cpf == {users_cpf} and cod_system == "{users_system}" and profile == "{users_profile}"'
+        
+        print(self.service.find(self.sheet_name, expr))
+        return self.service.find(self.sheet_name, expr)
     
     def save(self, new_item: dict):
         self.service.add_row(self.sheet_name, pd.DataFrame({

@@ -25,7 +25,7 @@ class PutUserController(BaseController):
             self._view.error_label.pack(side="top", fill="x")
         else:
             self._model.save(new_item)
-        self._view.close()
+            self._view.close()
 
     def update(self, old_item: dict, new_item: dict):
         self._model.update(old_item, new_item)
