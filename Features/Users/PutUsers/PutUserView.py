@@ -22,7 +22,10 @@ class PutUserView(Modal):
                                      font=LightTheme.get_font("heading2"), text_color=LightTheme.fg, anchor="w")
         self.subtitle.pack(side="top", fill="x")
 
-        self.users_cpf = Entry(master, label="Cpf")
+        self.users_cpf = Entry(master, label="CPF", validators=[Validator(
+            fn=lambda value: self._controller.validate_num(value),
+            message="Digite apenas números")])
+        # self.users_cpf = Entry(master, label="CPF")
         self.users_cpf.pack(side="top", fill="x")
 
         self.users_system = Entry(master, label="Código do Sistema", validators=[Validator(

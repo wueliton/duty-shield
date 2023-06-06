@@ -14,6 +14,27 @@ class SoDService:
         excel_file = pd.ExcelFile(self.file_name)
         data = pd.read_excel(excel_file, sheet_name=sheet_name)
         return data.to_dict('records')
+        
+    def get_column_data(self, sheet_name, column1, column2, column3, column4):
+        excel_file = pd.ExcelFile(self.file_name)
+        data = pd.read_excel(excel_file, sheet_name=sheet_name)
+        if column1 in data.columns and column2 in data.columns and column3 in data.columns and column4 in data.columns:
+            column_data = data[[column1, column2, column3, column4]].values.tolist()
+            return column_data
+        else:
+            return None
+        
+    def get_value_data(self, sheet_name, column1, column2, value1, value2):
+        excel_file = pd.ExcelFile(self.file_name)
+        data = pd.read_excel(excel_file, sheet_name=sheet_name)
+        if column1 in data.columns and column2 in data.columns:
+            column_data = data[[column1, column2]].values.tolist()
+            for item in column_data:
+                item.insert(0, value1)
+                item.insert(1, value2)
+            return column_data
+        else:
+            return None
 
     def get_sheet_count(self, sheet_name: Union[str, int]):
         excel_file = pd.ExcelFile(self.file_name)
@@ -33,6 +54,20 @@ class SoDService:
         df = excel[sheet_name]
         result = df.query(expr)
         return result.to_dict('records')
+    
+    def find_keys(self, sheet_name: Union[str, int], expr: str, key1: str, key2: str, value1: str, value2: str):
+        excel_file = pd.ExcelFile(self.file_name)
+        excel = pd.read_excel(excel_file, sheet_name=None)
+        df = excel[sheet_name]
+        result = df.query(expr)
+        records = result.to_dict('records')
+        data_list = [[record[key1], record[key2]] for record in records]
+        for item in data_list:
+                item.insert(0, value1)
+                item.insert(1, value2)
+        return data_list
+
+        
 
     def add_row(self, target_sheet_name: str, new_line: DataFrame):
         if new_line is None:

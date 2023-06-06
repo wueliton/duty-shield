@@ -20,16 +20,34 @@ class PutUserModel(BaseModel):
     def check_exists_profile(self, system_cod: str, profile_name: str):
         return len(self.service.find('profiles', f'cod_system == "{system_cod}" and '
                                                  f'name == "{profile_name}"')) == 0
-    
+        
     def check_exists(self, item: dict):
         users_cpf = item['cpf']
         users_system = item['cod_system']
         users_profile = item['profile']
-        
         expr = f'cpf == {users_cpf} and cod_system == "{users_system}" and profile == "{users_profile}"'
-        
-        print(self.service.find(self.sheet_name, expr))
         return self.service.find(self.sheet_name, expr)
+    
+
+    def check_exists_profile_save(self, system_cod: str, profile_name: str):
+        return len(self.service.find('profiles', f'cod_system == "{system_cod}" and '
+                                                 f'name == "{profile_name}"')) == 0
+    
+    def check_exists_cpf(self, cpf: int):
+        return self.service.find(self.sheet_name, f'cpf == {cpf}')
+    
+    def check_lists(self, lista1, lista2):
+        for sublist1 in lista1:
+            for sublist2 in lista2:
+                if sublist1 == sublist2:
+                    return True
+        return False
+
+    def verificar_conflitos_usuario(self, cpf: int, cod_system: str, profile: str):
+        users_system_profile = self.service.find_keys(self.sheet_name, f'cpf == {cpf}', 'cod_system', 'profile', cod_system, profile)
+        matriz = self.service.get_column_data('matriz', 'cod_system', 'name_profile', 'cod_system_conflict', 'name_profile_conflict')
+        if self.check_lists(users_system_profile, matriz):
+            return True
     
     def save(self, new_item: dict):
         self.service.add_row(self.sheet_name, pd.DataFrame({
