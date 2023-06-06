@@ -40,14 +40,14 @@ class PutUserModel(BaseModel):
         for sublist1 in lista1:
             for sublist2 in lista2:
                 if sublist1 == sublist2:
-                    return True
-        return False
+                    return True, sublist1[-2:]  # Retorna as duas últimas strings da sublist1
+        return False, None
 
-    def verificar_conflitos_usuario(self, cpf: int, cod_system: str, profile: str):
+    def validate_conflicts(self, cpf: int, cod_system: str, profile: str):
         users_system_profile = self.service.find_keys(self.sheet_name, f'cpf == {cpf}', 'cod_system', 'profile', cod_system, profile)
         matriz = self.service.get_column_data('matriz', 'cod_system', 'name_profile', 'cod_system_conflict', 'name_profile_conflict')
-        if self.check_lists(users_system_profile, matriz):
-            return True
+        conlfict, conflict_value = self.check_lists(users_system_profile, matriz)
+        return conlfict,  conflict_value
     
     def save(self, new_item: dict):
         self.service.add_row(self.sheet_name, pd.DataFrame({
