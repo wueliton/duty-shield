@@ -17,3 +17,4 @@ class HomeController(BaseController):
     def load_dashboard(self):
         self._view.set_systems_count(self._model.get_data_count(sheet_name='systems'))
         self._view.set_users_count(self._model.get_data_count(sheet_name='users'))
+        self._view.set_profiles_count(self._model.get_data_count(sheet_name='profiles'))

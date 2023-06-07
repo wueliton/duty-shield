@@ -33,6 +33,9 @@ class HomeView(ctk.CTkFrame):
 
         self.card_users = OverViewCard(self.overview_frame, title="Usuários", value="", color="#0984e3")
         self.card_users.grid(column=1, row=1, padx=4, pady=4, sticky="nsew")
+        
+        self.card_priofiles = OverViewCard(self.overview_frame, title="Perfis", value="", color="#87ab69")
+        self.card_priofiles.grid(column=2, row=1, padx=4, pady=4, sticky="nsew")
 
     def set_controller(self, controller):
         self._controller = controller
@@ -45,3 +48,6 @@ class HomeView(ctk.CTkFrame):
 
     def set_users_count(self, count: str):
         self.card_users.configure(value=count)
+    
+    def set_profiles_count(self, count: str):
+        self.card_priofiles.configure(value=count)

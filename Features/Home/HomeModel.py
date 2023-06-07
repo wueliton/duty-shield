@@ -10,6 +10,7 @@ class HomeModel(BaseModel):
     _night = datetime.time(18, 0, 0)
     _systems_count = 0
     _users_count = 0
+    _profiles_count = 0
     message = ""
 
     def __init__(self, sod_service: SoDService):

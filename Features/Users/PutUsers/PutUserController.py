@@ -47,11 +47,15 @@ class PutUserController(BaseController):
             self._view.close()
 
     def update(self, old_item: dict, new_item: dict):
+        conflict,  conflict_value = self._model.validate_conflicts(new_item['cpf'], new_item['cod_system'], new_item['profile'])
         if self.check_exists(new_item):
             self._view.error_label.configure(text="Não é possível salvar pois o usuário já existe.")
             self._view.error_label.pack(side="top", fill="x")
         elif self.check_exists_profile_save(new_item['cod_system'], new_item['profile']):
             self._view.error_label.configure(text="Não é possível salvar pois o perfil ou sistema não existe.")
+            self._view.error_label.pack(side="top", fill="x")
+        elif conflict:
+            self._view.error_label.configure(text=f"Não é possível salvar pois foi encontrado um conflito com o perfil {conflict_value[1]} do sistema {conflict_value[0]}")
             self._view.error_label.pack(side="top", fill="x")
         else:
             self._model.update(old_item, new_item)
