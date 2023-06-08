@@ -1,8 +1,7 @@
-class PutSystemController:
-    def __init__(self, model, view):
-        self._model = model
-        self._view = view
+from Utils.BaseController import BaseController
 
+
+class PutSystemController(BaseController):
     def validate_cod(self, old_cod: str, cod: str):
         row = self._model.get_system_by_cod(cod)
         return old_cod != cod and len(row) > 0

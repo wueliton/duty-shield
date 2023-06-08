@@ -1,17 +1,20 @@
 import datetime
-import pandas as pd
+
+from Service.SoDService import SoDService
+from Utils.BaseModel import BaseModel
 
 
-class HomeModel:
+class HomeModel(BaseModel):
     _morning = datetime.time(6, 0, 0)
     _afternoon = datetime.time(12, 0, 0)
     _night = datetime.time(18, 0, 0)
     _systems_count = 0
     _users_count = 0
+    _profiles_count = 0
+    message = ""
 
-    def __init__(self, excel_file: pd.ExcelFile):
-        self.message = ""
-        self.excel_file = excel_file
+    def __init__(self, sod_service: SoDService):
+        super().__init__(sod_service)
 
     def update_message(self):
         now = datetime.datetime.now().time()
@@ -25,5 +28,4 @@ class HomeModel:
 
     def get_data_count(self, sheet_name: str = None):
         if sheet_name is not None:
-            data = pd.read_excel(self.excel_file, sheet_name=sheet_name)
-            return len(data.index)
+            return self.service.get_sheet_count(sheet_name)

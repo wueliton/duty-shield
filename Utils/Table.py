@@ -1,4 +1,4 @@
-from typing import Callable, Any, Literal, List
+from typing import Callable, List
 
 import customtkinter as ctk
 
